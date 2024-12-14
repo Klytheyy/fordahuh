@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Go Out With Me?</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ffecd2, #fcb69f);
+            color: #333;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 50px;
+        }
+
+        .start-button {
+            font-size: 1.5rem;
+            padding: 10px 30px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .start-button:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .hearts {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            animation: fadeIn 2s;
+        }
+
+        .heart {
+            width: 50px;
+            height: 50px;
+            background: red;
+            clip-path: polygon(50% 0%, 100% 35%, 85% 100%, 50% 75%, 15% 100%, 0% 35%);
+            animation: heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .final-question {
+            font-size: 2rem;
+            margin: 40px 0;
+            display: none;
+            animation: fadeIn 2s;
+        }
+
+        .response-button {
+            font-size: 1.5rem;
+            padding: 10px 30px;
+            margin: 10px;
+            background-color: #61c0ff;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .response-button:hover {
+            background-color: #ff6f61;
+        }
+
+        .celebration {
+            font-size: 2.5rem;
+            color: #f39c12;
+            display: none;
+            animation: confetti 3s forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>A Special Question Awaits You!</h1>
+        <button class="start-button" onclick="startExperience()">Let's Begin!</button>
+
+        <div id="game-section" class="hidden">
+            <div class="hearts">
+                <div class="heart"></div>
+                <div class="heart"></div>
+                <div class="heart"></div>
+            </div>
+            <p>Click the hearts to reveal your question!</p>
+        </div>
+
+        <div id="question-section" class="hidden">
+            <p class="final-question">Will you go on a date with me?</p>
+            <button class="response-button" onclick="celebrate('Yes!')">Yes!</button>
+            <button class="response-button" onclick="celebrate('Of Course!')">Of Course!</button>
+        </div>
+
+        <div id="celebration-section" class="hidden">
+            <p class="celebration">🎉 Yay! I can't wait! 🎉</p>
+        </div>
+    </div>
+
+    <script>
+        function startExperience() {
+            document.querySelector('.start-button').classList.add('hidden');
+            document.querySelector('#game-section').classList.remove('hidden');
+        }
+
+        function celebrate(response) {
+            alert(response);
+            document.querySelector('#question-section').classList.add('hidden');
+            document.querySelector('#celebration-section').classList.remove('hidden');
+        }
+
+        const hearts = document.querySelectorAll('.heart');
+        hearts.forEach((heart, index) => {
+            heart.addEventListener('click', () => {
+                heart.style.backgroundColor = 'pink';
+                if (index === hearts.length - 1) {
+                    document.querySelector('#game-section').classList.add('hidden');
+                    document.querySelector('#question-section').classList.remove('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
